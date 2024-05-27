@@ -1,5 +1,3 @@
-// pages/dashboard.js
-
 import { useState } from 'react';
 import Map from '../components/Map';
 import FileUpload from '../components/FileUpload';
@@ -8,7 +6,6 @@ export default function Dashboard() {
   const [datasets, setDatasets] = useState([]);
 
   const handleDatasetUpload = (newDataset) => {
-    // Add the new dataset to the existing list of datasets
     setDatasets([...datasets, newDataset]);
   };
 

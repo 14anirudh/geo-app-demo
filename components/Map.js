@@ -1,5 +1,3 @@
-// components/Map.js
-
 import React, { useEffect, useRef } from 'react';
 import mapboxgl from 'mapbox-gl';
 
@@ -43,7 +41,7 @@ export default function Map({ datasets }) {
       });
     });
 
-    // Cleanup
+    
     return () => map.remove();
   }, [datasets]);
 
