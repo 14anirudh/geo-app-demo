@@ -9,13 +9,14 @@ export default function RegisterForm() {
   async function submitHandler(e) {
     e.preventDefault();
 
-    const response = await fetch('/api/register', {
+    const response = await fetch('http://localhost:3000/api/register', {
       method: 'POST',
       body: JSON.stringify({ email, password }),
       headers: { 'Content-Type': 'application/json' },
     });
 
     const data = await response.json();
+    console.log(data)
 
     if (response.ok) {
       router.push('/login');
