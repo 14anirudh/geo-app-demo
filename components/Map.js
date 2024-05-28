@@ -137,7 +137,7 @@ export default function Map({ datasets, visibleDatasets }) {
         </button>
         {distance && (
           <div className="mb-4 px-4 py-2 bg-blue-500 text-white rounded">
-            Distance: {distance} kilometers
+            Distance: {distance} kilometers and {distance*1.6.toFixed(2)} miles
           </div>
         )}
       </div>
