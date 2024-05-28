@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@turf/turf": "^6.5.0",
     "bcryptjs": "^2.4.3",
     "dotenv": "^16.4.5",
     "mapbox-gl": "^3.4.0",
