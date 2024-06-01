@@ -1,12 +1,17 @@
 import NextAuth from 'next-auth';
-import { Credentials } from 'next-auth/providers';
+import CredentialsProvider from 'next-auth/providers/credentials';
 import connectToDatabase from '../../../lib/mongodb';
 import User from '../../../models/User';
 import { compare } from 'bcryptjs';
 
 export default NextAuth({
   providers: [
-    Credentials({
+    CredentialsProvider({
+      name: 'Credentials',
+      credentials: {
+        email: { label: "Email", type: "email" },
+        password: { label: "Password", type: "password" }
+      },
       async authorize(credentials) {
         const { email, password } = credentials;
         await connectToDatabase();
