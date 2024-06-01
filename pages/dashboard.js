@@ -1,7 +1,6 @@
-import { useState } from "react";
-import Map from "../components/Map";
-import { nanoid } from "nanoid";
-import * as turf from "@turf/turf";
+import { useState } from 'react';
+import Map from '../components/Map';
+import { nanoid } from 'nanoid';
 
 export default function Dashboard() {
   const [datasets, setDatasets] = useState([]);
@@ -16,7 +15,7 @@ export default function Dashboard() {
       const id = nanoid();
       setDatasets((prev) => [
         ...prev,
-        { id, data, type: "geojson", name: file.name },
+        { id, data, type: 'geojson', name: file.name },
       ]);
       setVisibleDatasets((prev) => [...prev, id]);
     };
@@ -31,22 +30,6 @@ export default function Dashboard() {
         : [...prev, id]
     );
   };
-
-  function calculateDistance(point1, point2, units = "kilometers") {
-    // Create Turf.js point objects
-    const from = turf.point(point1);
-    const to = turf.point(point2);
-
-    // Calculate the distance between the points
-    const distance = turf.distance(from, to, { units });
-
-    return distance;
-  }
-
-  const pointA = [-75.343, 39.984];
-  const pointB = [-75.534, 39.123];
-  const distance = calculateDistance(pointA, pointB, "miles");
-  console.log(`Distance: ${distance} miles`);
 
   return (
     <div className="min-h-screen flex flex-col items-center bg-gray-100">
@@ -65,8 +48,8 @@ export default function Dashboard() {
             onClick={() => toggleDatasetVisibility(dataset.id)}
             className={`px-4 py-2 m-2 ${
               visibleDatasets.includes(dataset.id)
-                ? "bg-blue-500 text-white"
-                : "bg-gray-300"
+                ? 'bg-blue-500 text-white'
+                : 'bg-gray-300'
             } rounded`}
           >
             {dataset.name}

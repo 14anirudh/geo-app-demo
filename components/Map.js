@@ -10,6 +10,7 @@ export default function Map({ datasets, visibleDatasets }) {
   const [points, setPoints] = useState([]);
   const [distance, setDistance] = useState(null);
   const [selectMode, setSelectMode] = useState(false);
+  const [hoverInfo, setHoverInfo] = useState(null);
 
   useEffect(() => {
     mapboxgl.accessToken = MAPBOX_TOKEN;
@@ -74,6 +75,26 @@ export default function Map({ datasets, visibleDatasets }) {
               'circle-color': '#007cbf',
             },
           });
+
+          // Show custom tooltip on hover
+          map.on('mouseenter', dataset.id, (e) => {
+            map.getCanvas().style.cursor = 'pointer';
+            const coordinates = e.features[0].geometry.coordinates.slice();
+            const properties = e.features[0].properties;
+
+            const point = map.project(coordinates);
+
+            setHoverInfo({
+              point,
+              properties,
+              name: dataset.name,
+            });
+          });
+
+          map.on('mouseleave', dataset.id, () => {
+            map.getCanvas().style.cursor = '';
+            setHoverInfo(null);
+          });
         }
       }
     });
@@ -137,11 +158,25 @@ export default function Map({ datasets, visibleDatasets }) {
         </button>
         {distance && (
           <div className="mb-4 px-4 py-2 bg-blue-500 text-white rounded">
-            Distance: {distance} kilometers and {distance*1.6.toFixed(2)} miles
+            Distance: {distance} kilometers and {(distance * 1.6).toFixed(2)} miles
           </div>
         )}
       </div>
-      <div ref={mapContainerRef} className="w-full h-screen" />
+      <div ref={mapContainerRef} className="relative w-full h-screen">
+        {hoverInfo && (
+          <div
+            className="absolute bg-white p-2 rounded shadow"
+            style={{
+              left: `${hoverInfo.point.x}px`,
+              top: `${hoverInfo.point.y}px`,
+              transform: 'translate(-50%, -100%)',
+            }}
+          >
+            <strong>{hoverInfo.name}</strong>
+            <p>{JSON.stringify(hoverInfo.properties)}</p>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
