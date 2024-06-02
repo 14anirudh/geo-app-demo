@@ -32,31 +32,33 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center bg-gray-100">
-      <h1 className="text-3xl font-bold mt-6 mb-4">Dashboard</h1>
+    <div className="min-h-screen flex">
+      <div className="flex flex-col w-1/4 p-4 bg-gray-100">
+        <h1 className="text-3xl font-bold mt-6 mb-4">Dashboard</h1>
 
-      <input
-        type="file"
-        accept=".geojson"
-        onChange={handleFileUpload}
-        className="mb-4"
-      />
-      <div className="flex flex-wrap justify-center mb-4">
-        {datasets.map((dataset) => (
-          <button
-            key={dataset.id}
-            onClick={() => toggleDatasetVisibility(dataset.id)}
-            className={`px-4 py-2 m-2 ${
-              visibleDatasets.includes(dataset.id)
-                ? 'bg-blue-500 text-white'
-                : 'bg-gray-300'
-            } rounded`}
-          >
-            {dataset.name}
-          </button>
-        ))}
+        <input
+          type="file"
+          accept=".geojson"
+          onChange={handleFileUpload}
+          className="mb-4"
+        />
+        <div className="flex flex-wrap justify-center mb-4">
+          {datasets.map((dataset) => (
+            <button
+              key={dataset.id}
+              onClick={() => toggleDatasetVisibility(dataset.id)}
+              className={`px-4 py-2 m-2 ${
+                visibleDatasets.includes(dataset.id)
+                  ? 'bg-blue-500 text-white'
+                  : 'bg-gray-300'
+              } rounded`}
+            >
+              {dataset.name}
+            </button>
+          ))}
+        </div>
       </div>
-      <div className="w-full h-96">
+      <div className="w-3/4 h-screen">
         <Map datasets={datasets} visibleDatasets={visibleDatasets} />
       </div>
     </div>
